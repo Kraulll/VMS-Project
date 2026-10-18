@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: vms-roadside
+    runtime: static
+    buildCommand: npm run build
+    staticPublishPath: ./public
