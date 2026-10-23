@@ -59,20 +59,6 @@ MONGODB_URI=mongodb://127.0.0.1:27017/vms
 
 Use your own Atlas connection URI when hosting. Keep credentials in `.env` or Render environment variables, never in Git. A failed MongoDB connection stops startup; the app never silently switches storage. Default `memory` mode is temporary and loses requests on server restart. The database adapter is implemented, but a live MongoDB connection must be tested with your database.
 
-## Deploy to your Render account
-
-This version requires a **Web Service**, not the old Static Site configuration.
-
-1. Publish the contents of this project folder to a GitHub repository, including `package-lock.json`.
-2. In your Render account, choose New > Web Service and connect that repository.
-3. Runtime: Node. Build command: `npm ci && npm run build`. Start command: `npm start`.
-4. Health check: `/api/health`. Set `NODE_ENV=production`.
-5. For a temporary demonstration set `STORAGE_MODE=memory`. For saved records set `STORAGE_MODE=mongodb` and supply your private `MONGODB_URI`.
-6. Deploy. Render sets `PORT` automatically. Its URL serves both React and Express without ChatGPT sign-in.
-
-The included `render.yaml` can also create the Web Service through a Render Blueprint. Its default is memory mode. No Render deployment was performed in this task.
-
-Official reference: https://render.com/docs/deploy-node-express-app
 
 ## Demo walkthrough
 
@@ -82,14 +68,3 @@ Official reference: https://render.com/docs/deploy-node-express-app
 4. Mechanic: mark arrival, start the service, then mark it finished.
 5. Driver: confirm the vehicle is running, choose a rating, and complete the simulated payment.
 6. My services: review the request and receipt. Open another request from history or create a new one.
-
-## Honest project scope
-
-- Role buttons are **demo controls**, not authenticated users. The server enforces selected-role workflow rules, but the role header can be changed by a visitor. Production needs real user authentication and authorization.
-- Requests are scoped to an HTTP-only browser-session cookie. Other browsers get separate demonstrations. Driver and mechanic roles share one browser session for the walkthrough. This is not cross-device dispatch.
-- React fetches current records after actions. There is no automatic realtime subscription; My services includes Refresh.
-- Profiles, ratings on profiles, travel distance, map, ETA, calls/video, and payment are simulated. This does not dispatch anyone or charge a card.
-- MongoDB stores real request documents when configured, including addresses and issue text. Use fictitious details for this demo.
-- Production work remaining: authenticated accounts, user/mechanic ownership, real location matching, communications, payment provider, abuse prevention, and operational review.
-
-See [the skills map](docs/SKILLS-MAP.md) and [API guide](docs/API.md) to explain the implementation during a capstone review.
